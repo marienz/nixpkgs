@@ -113,10 +113,10 @@ stdenv.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     dejagnu
     mkpasswd
-    nss_wrapper
-  ];
+  ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ nss_wrapper ];
 
-  preCheck = ''
+  preCheck = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     # The nix sandbox's /etc/passwd has literal quotes around the home directory
     # (e.g. "/build" instead of /build). imap4d's mu_homedir_assert (new in
     # 3.21) calls stat() on this path, which fails because no directory named
