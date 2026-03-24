@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch2,
   help2man,
   lz4,
   lzo,
@@ -22,6 +23,14 @@ stdenv.mkDerivation (finalAttrs: {
     rev = finalAttrs.version;
     hash = "sha256-rQ69sXvi6wY8yRyuQzcJZ6MvVGBbIw7vG+kYVHvfQQ8=";
   };
+
+  patches = [
+    (fetchpatch2 {
+      name = "fix-macos-build.patch";
+      url = "https://github.com/plougher/squashfs-tools/commit/f88f4a659d6ab432a57e90fe2f6191149c6b343f.patch?full_index=1";
+      hash = "sha256-NyMIlL+8aU11HPH/7jTEFAQYhgMkVCgdtKytdhplCkg=";
+    })
+  ];
 
   strictDeps = true;
   nativeBuildInputs = [
