@@ -1371,8 +1371,17 @@ let
           );
 
           # https://github.com/abo-abo/lispy/pull/683
-          # missing optional dependencies
-          lispy = addPackageRequires (mkHome super.lispy) [ self.indium ];
+          # missing optional dependency (indium)
+          # https://github.com/melpa/melpa/commit/ce48c8475144800fc1150607353df958afadf2ed
+          # MELPA does not pick up dependencies from lispy-pkg.el
+          lispy = addPackageRequires (mkHome super.lispy) [
+            self.ace-window
+            self.iedit
+            self.swiper
+            self.hydra
+            self.zoutline
+            self.indium
+          ];
 
           lsp-origami = ignoreCompilationError super.lsp-origami; # elisp error
 
